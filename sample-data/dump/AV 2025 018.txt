@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: AV-2025-018
+Data emiterii: 2025-02-10
+
+FURNIZOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+CUMPARATOR:
+  Mobilier Deco SRL
+  CUI: RO67890123  Reg. Com.: J12/890/2017
+  Adresa: Str. Decoratorilor nr. 14, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Biblioteca lemn masiv la comanda | 2 | buc | 3150.00 RON | 6300.00 RON
+2 | Birou executiv lemn stejar | 3 | buc | 2483.33 RON | 7449.99 RON
+
+Subtotal (fara TVA): 13749.99 RON
+TVA (19%): 2612.50 RON
+TOTAL DE PLATA: 16362.49 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: FTN-013
+Data emiterii: 2025-11-03
+
+FURNIZOR:
+  Transport Nord SRL
+  CUI: RO56789012  Reg. Com.: J06/77/2014
+  Adresa: Str. Transportatorilor nr. 8, Bistrita, jud. Bistrita-Nasaud
+
+CUMPARATOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Transport marfa Cluj-Napoca - santier | 1 | cursa | 620.00 RON | 620.00 RON
+2 | Manipulare si incarcare | 1 | serv | 304.62 RON | 304.62 RON
+
+Subtotal (fara TVA): 924.62 RON
+TVA (19%): 175.68 RON
+TOTAL DE PLATA: 1100.30 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

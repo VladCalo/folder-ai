@@ -1,0 +1,26 @@
+FACTURA FISCALA
+Seria/Nr: AV-2025-057
+Data emiterii: 2025-06-25
+
+FURNIZOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+CUMPARATOR:
+  Mobilier Deco SRL
+  CUI: RO67890123  Reg. Com.: J12/890/2017
+  Adresa: Str. Decoratorilor nr. 14, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Mobilier showroom - set complet | 1 | set | 28500.00 RON | 28500.00 RON
+2 | Rafturi expunere lemn masiv | 10 | buc | 1470.00 RON | 14700.00 RON
+3 | Montaj si instalare la client | 1 | serv | 1600.00 RON | 1600.00 RON
+
+Subtotal (fara TVA): 44800.00 RON
+TVA (19%): 8512.00 RON
+TOTAL DE PLATA: 53312.00 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

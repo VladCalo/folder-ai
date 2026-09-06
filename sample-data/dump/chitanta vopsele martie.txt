@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: FVR-011
+Data emiterii: 2025-03-25
+
+FURNIZOR:
+  Vopsele Rapid SRL
+  CUI: RO45678901  Reg. Com.: J40/998/2019
+  Adresa: Str. Chimistilor nr. 3, Bucuresti, sector 3
+
+CUMPARATOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Lac lemn mat 5L | 6 | buc | 86.80 RON | 520.80 RON
+2 | Grund lemn 5L | 2 | buc | 68.00 RON | 136.00 RON
+
+Subtotal (fara TVA): 656.80 RON
+TVA (19%): 124.79 RON
+TOTAL DE PLATA: 781.59 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

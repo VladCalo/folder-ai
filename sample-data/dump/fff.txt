@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: FFE-039
+Data emiterii: 2025-04-22
+
+FURNIZOR:
+  Feronerie Est SRL
+  CUI: RO34567890  Reg. Com.: J22/331/2016
+  Adresa: Str. Industriilor nr. 22, Iasi, jud. Iasi
+
+CUMPARATOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Manere inox mobilier | 60 | buc | 9.80 RON | 588.00 RON
+2 | Suruburi mobilier set 200 buc | 4 | set | 45.50 RON | 182.00 RON
+
+Subtotal (fara TVA): 770.00 RON
+TVA (19%): 146.30 RON
+TOTAL DE PLATA: 916.30 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

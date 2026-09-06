@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: AV-2025-042
+Data emiterii: 2025-05-05
+
+FURNIZOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+CUMPARATOR:
+  Cabinet de Avocatura Ionescu
+  CUI: RO78901234  Reg. Com.: -
+  Adresa: Str. Justitiei nr. 2, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Biblioteca birou avocatura lemn masiv | 1 | buc | 6800.00 RON | 6800.00 RON
+2 | Masa conferinta lemn masiv 10 persoane | 1 | buc | 3542.02 RON | 3542.02 RON
+
+Subtotal (fara TVA): 10342.02 RON
+TVA (19%): 1964.98 RON
+TOTAL DE PLATA: 12307.00 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

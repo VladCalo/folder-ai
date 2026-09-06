@@ -4,7 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository state
 
-This repo currently contains **no implementation code** — only the planning package for FoldarAI in `docs/`. There is no build system, lint config, test suite, or `docker-compose.yml` yet. Do not assume commands like `npm test` or `docker-compose up` work; they don't exist until Phase 0 of the roadmap is built (see below). When implementation starts, this file should be updated with real build/lint/test commands.
+This repo currently contains **no implementation code** — only the planning package for FoldarAI in `docs/`, plus a synthetic test-document set in `sample-data/` (see `sample-data/README.md`). There is no build system, lint config, test suite, or `docker-compose.yml` yet. Do not assume commands like `npm test` or `docker-compose up` work; they don't exist until Phase 0 of the roadmap is built (see below). When implementation starts, this file should be updated with real build/lint/test commands.
+
+## Sample data
+
+`sample-data/` holds a small, entirely synthetic Romanian document set (19 invoices, 4 contracts, 2 HR docs, 5 emails, 1 accounting spreadsheet) for one fictional company, generated for Phase 1-4 pipeline testing — see `sample-data/README.md` for the entity list and ground-truth answers (best month, totals per supplier, notice periods, etc.) that map directly to the example queries in `docs/02-mvp-scope.md`. Feed the pipeline `sample-data/dump/` — a flat folder with deliberately messy, non-descriptive filenames simulating a real unsorted client hand-off — never a type-sorted folder; `sample-data/manifest.json` is the separate answer key (true `document_type` + fields) used only to score classification/extraction accuracy, not fed to the pipeline. It intentionally does not cover OCR/scan-quality risk (plain text, not scanned PDFs) — that's a Phase 8 real-pilot concern.
+
+Note: the actual infra build has started outside this repo — Postgres (with the `pgvector` extension, one `folderai` database holding both relational tables and vector-embedding columns) runs on a home k3s cluster (Raspberry Pi 5), managed via ArgoCD from the `k3s-rpi5` repo (`apps/folderai/`, `apps/postgres/`). This repo doesn't yet contain the ingestion/router service code that will connect to it.
 
 ## What FoldarAI is
 

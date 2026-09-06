@@ -1,0 +1,233 @@
+[
+  {
+    "filename": "Document_15012025.txt",
+    "document_type": "invoice",
+    "invoice_id": "FLP-014",
+    "partner": "Lemn Prod SRL",
+    "date": "2025-01-15",
+    "direction": "purchase",
+    "total_amount_ron": 5403.1
+  },
+  {
+    "filename": "atasament (1).txt",
+    "document_type": "invoice",
+    "invoice_id": "FLP-031",
+    "partner": "Lemn Prod SRL",
+    "date": "2025-03-10",
+    "direction": "purchase",
+    "total_amount_ron": 7068.6
+  },
+  {
+    "filename": "20.05.2025.txt",
+    "document_type": "invoice",
+    "invoice_id": "FLP-052",
+    "partner": "Lemn Prod SRL",
+    "date": "2025-05-20",
+    "direction": "purchase",
+    "total_amount_ron": 5416.88
+  },
+  {
+    "filename": "Document nou (2).txt",
+    "document_type": "invoice",
+    "invoice_id": "FLP-061",
+    "partner": "Lemn Prod SRL",
+    "date": "2025-06-05",
+    "direction": "purchase",
+    "total_amount_ron": 11470.01
+  },
+  {
+    "filename": "copie1.txt",
+    "document_type": "invoice",
+    "invoice_id": "FLP-078",
+    "partner": "Lemn Prod SRL",
+    "date": "2025-08-12",
+    "direction": "purchase",
+    "total_amount_ron": 4527.95
+  },
+  {
+    "filename": "octombrie.txt",
+    "document_type": "invoice",
+    "invoice_id": "FLP-096",
+    "partner": "Lemn Prod SRL",
+    "date": "2025-10-07",
+    "direction": "purchase",
+    "total_amount_ron": 5914.78
+  },
+  {
+    "filename": "factura feronerie.txt",
+    "document_type": "invoice",
+    "invoice_id": "FFE-022",
+    "partner": "Feronerie Est SRL",
+    "date": "2025-02-18",
+    "direction": "purchase",
+    "total_amount_ron": 1472.03
+  },
+  {
+    "filename": "fff.txt",
+    "document_type": "invoice",
+    "invoice_id": "FFE-039",
+    "partner": "Feronerie Est SRL",
+    "date": "2025-04-22",
+    "direction": "purchase",
+    "total_amount_ron": 916.3
+  },
+  {
+    "filename": "Fwd - feronerie iunie.txt",
+    "document_type": "invoice",
+    "invoice_id": "FFE-058",
+    "partner": "Feronerie Est SRL",
+    "date": "2025-06-15",
+    "direction": "purchase",
+    "total_amount_ron": 2778.65
+  },
+  {
+    "filename": "Document nou.txt",
+    "document_type": "invoice",
+    "invoice_id": "FFE-081",
+    "partner": "Feronerie Est SRL",
+    "date": "2025-09-09",
+    "direction": "purchase",
+    "total_amount_ron": 1272.11
+  },
+  {
+    "filename": "chitanta vopsele martie.txt",
+    "document_type": "invoice",
+    "invoice_id": "FVR-011",
+    "partner": "Vopsele Rapid SRL",
+    "date": "2025-03-25",
+    "direction": "purchase",
+    "total_amount_ron": 781.59
+  },
+  {
+    "filename": "vopsele iulie.txt",
+    "document_type": "invoice",
+    "invoice_id": "FVR-024",
+    "partner": "Vopsele Rapid SRL",
+    "date": "2025-07-14",
+    "direction": "purchase",
+    "total_amount_ron": 861.57
+  },
+  {
+    "filename": "final.txt",
+    "document_type": "invoice",
+    "invoice_id": "FTN-005",
+    "partner": "Transport Nord SRL",
+    "date": "2025-06-20",
+    "direction": "purchase",
+    "total_amount_ron": 949.8
+  },
+  {
+    "filename": "transport nord noiembrie.txt",
+    "document_type": "invoice",
+    "invoice_id": "FTN-013",
+    "partner": "Transport Nord SRL",
+    "date": "2025-11-03",
+    "direction": "purchase",
+    "total_amount_ron": 1100.3
+  },
+  {
+    "filename": "AV 2025 018.txt",
+    "document_type": "invoice",
+    "invoice_id": "AV-2025-018",
+    "partner": "Mobilier Deco SRL",
+    "date": "2025-02-10",
+    "direction": "sale",
+    "total_amount_ron": 16362.49
+  },
+  {
+    "filename": "comanda mobilier deco iunie.txt",
+    "document_type": "invoice",
+    "invoice_id": "AV-2025-057",
+    "partner": "Mobilier Deco SRL",
+    "date": "2025-06-25",
+    "direction": "sale",
+    "total_amount_ron": 53312.0
+  },
+  {
+    "filename": "Document (3).txt",
+    "document_type": "invoice",
+    "invoice_id": "AV-2025-091",
+    "partner": "Mobilier Deco SRL",
+    "date": "2025-10-15",
+    "direction": "sale",
+    "total_amount_ron": 18817.85
+  },
+  {
+    "filename": "factura ionescu.txt",
+    "document_type": "invoice",
+    "invoice_id": "AV-2025-042",
+    "partner": "Cabinet de Avocatura Ionescu",
+    "date": "2025-05-05",
+    "direction": "sale",
+    "total_amount_ron": 12307.0
+  },
+  {
+    "filename": "chitanta popescu.txt",
+    "document_type": "invoice",
+    "invoice_id": "AV-2025-071",
+    "partner": "Popescu Andrei (persoana fizica)",
+    "date": "2025-08-20",
+    "direction": "sale",
+    "total_amount_ron": 4106.1
+  },
+  {
+    "filename": "Contract Lemn Prod 2025.txt",
+    "document_type": "contract",
+    "partner": "Lemn Prod SRL"
+  },
+  {
+    "filename": "contract feronerie SEMNAT.txt",
+    "document_type": "contract",
+    "partner": "Feronerie Est SRL"
+  },
+  {
+    "filename": "Contract transport final v2.txt",
+    "document_type": "contract",
+    "partner": "Transport Nord SRL"
+  },
+  {
+    "filename": "contract mobilier deco - semnat.txt",
+    "document_type": "contract",
+    "partner": "Mobilier Deco SRL"
+  },
+  {
+    "filename": "CIM Ioana Pop.txt",
+    "document_type": "hr_document",
+    "employee": "Pop Ioana"
+  },
+  {
+    "filename": "contract munca Mihai.txt",
+    "document_type": "hr_document",
+    "employee": "Georgescu Mihai"
+  },
+  {
+    "filename": "Fwd Fwd majorare pret feronerie.txt",
+    "document_type": "email",
+    "partner": "Feronerie Est SRL"
+  },
+  {
+    "filename": "email lemn prod intarziere.txt",
+    "document_type": "email",
+    "partner": "Lemn Prod SRL"
+  },
+  {
+    "filename": "RE comanda mobilier deco.txt",
+    "document_type": "email",
+    "partner": "Mobilier Deco SRL"
+  },
+  {
+    "filename": "plan productie iunie.txt",
+    "document_type": "email",
+    "partner": "intern"
+  },
+  {
+    "filename": "oferta vopsele.txt",
+    "document_type": "email",
+    "partner": "Vopsele Rapid SRL"
+  },
+  {
+    "filename": "Registru facturi 2025.xlsx",
+    "document_type": "other",
+    "note": "Accounting register spreadsheet - not one of the 4 MVP document_type values (contract/invoice/hr_document/email). Expected pipeline behavior: low-confidence / unclassified, flagged for review rather than silently misrouted - see docs/02-mvp-scope.md."
+  }
+]

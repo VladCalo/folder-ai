@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: FLP-052
+Data emiterii: 2025-05-20
+
+FURNIZOR:
+  Lemn Prod SRL
+  CUI: RO23456789  Reg. Com.: J06/112/2015
+  Adresa: Str. Padurii nr. 5, Bistrita, jud. Bistrita-Nasaud
+
+CUMPARATOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Panou lemn masiv stejar 25mm | 10 | buc | 310.00 RON | 3100.00 RON
+2 | Lambriu brad natural | 60 | ml | 24.20 RON | 1452.00 RON
+
+Subtotal (fara TVA): 4552.00 RON
+TVA (19%): 864.88 RON
+TOTAL DE PLATA: 5416.88 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: AV-2025-091
+Data emiterii: 2025-10-15
+
+FURNIZOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+CUMPARATOR:
+  Mobilier Deco SRL
+  CUI: RO67890123  Reg. Com.: J12/890/2017
+  Adresa: Str. Decoratorilor nr. 14, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Birou executiv lemn stejar | 4 | buc | 2483.33 RON | 9933.32 RON
+2 | Rafturi expunere lemn masiv | 4 | buc | 1470.00 RON | 5880.00 RON
+
+Subtotal (fara TVA): 15813.32 RON
+TVA (19%): 3004.53 RON
+TOTAL DE PLATA: 18817.85 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

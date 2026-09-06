@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: FLP-031
+Data emiterii: 2025-03-10
+
+FURNIZOR:
+  Lemn Prod SRL
+  CUI: RO23456789  Reg. Com.: J06/112/2015
+  Adresa: Str. Padurii nr. 5, Bistrita, jud. Bistrita-Nasaud
+
+CUMPARATOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Panou lemn masiv fag 18mm | 15 | buc | 235.00 RON | 3525.00 RON
+2 | Furnir stejar natural | 25 | mp | 96.60 RON | 2415.00 RON
+
+Subtotal (fara TVA): 5940.00 RON
+TVA (19%): 1128.60 RON
+TOTAL DE PLATA: 7068.60 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

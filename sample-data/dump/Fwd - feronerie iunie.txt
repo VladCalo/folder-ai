@@ -1,0 +1,26 @@
+FACTURA FISCALA
+Seria/Nr: FFE-058
+Data emiterii: 2025-06-15
+
+FURNIZOR:
+  Feronerie Est SRL
+  CUI: RO34567890  Reg. Com.: J22/331/2016
+  Adresa: Str. Industriilor nr. 22, Iasi, jud. Iasi
+
+CUMPARATOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Balamale mobilier inchidere lenta | 120 | buc | 8.90 RON | 1068.00 RON
+2 | Glisiere sertar 45cm | 50 | set | 17.50 RON | 875.00 RON
+3 | Manere inox mobilier | 40 | buc | 9.80 RON | 392.00 RON
+
+Subtotal (fara TVA): 2335.00 RON
+TVA (19%): 443.65 RON
+TOTAL DE PLATA: 2778.65 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii

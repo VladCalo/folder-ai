@@ -1,0 +1,25 @@
+FACTURA FISCALA
+Seria/Nr: FLP-078
+Data emiterii: 2025-08-12
+
+FURNIZOR:
+  Lemn Prod SRL
+  CUI: RO23456789  Reg. Com.: J06/112/2015
+  Adresa: Str. Padurii nr. 5, Bistrita, jud. Bistrita-Nasaud
+
+CUMPARATOR:
+  Atelierul Verde SRL
+  CUI: RO12345678  Reg. Com.: J12/456/2018
+  Adresa: Str. Fabricii nr. 10, Cluj-Napoca, jud. Cluj
+
+Nr. crt | Denumire produs/serviciu | Cant. | UM | Pret unitar (fara TVA) | Valoare (fara TVA)
+1 | Cherestea rasinoase 50x100 | 50 | ml | 38.50 RON | 1925.00 RON
+2 | Panou lemn masiv fag 18mm | 8 | buc | 235.00 RON | 1880.00 RON
+
+Subtotal (fara TVA): 3805.00 RON
+TVA (19%): 722.95 RON
+TOTAL DE PLATA: 4527.95 RON
+Moneda: RON
+
+Modalitate de plata: Ordin de plata / Transfer bancar
+Termen de plata: 15 zile de la data emiterii
