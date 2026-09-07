@@ -4,22 +4,22 @@ in the folderai Postgres database if they don't already exist. Idempotent -
 safe to run repeatedly.
 
 Requires `kubectl -n postgres port-forward svc/postgres 5432:5432` running
-against the admin@rpi5 context (see ingestion/README.md).
+against the admin@rpi5 context (see backend/README.md).
 """
 import sys
 from pathlib import Path
 
 from dotenv import load_dotenv
 
-INGESTION_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(INGESTION_ROOT))
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BACKEND_ROOT))
 
-from foldarai_ingestion import db  # noqa: E402
-from foldarai_ingestion.config import load_settings  # noqa: E402
+from foldarai import db  # noqa: E402
+from foldarai.config import load_settings  # noqa: E402
 
 
 def main() -> None:
-    load_dotenv(INGESTION_ROOT / ".env")
+    load_dotenv(BACKEND_ROOT / ".env")
     settings = load_settings()
     conn = db.connect(settings)
     try:

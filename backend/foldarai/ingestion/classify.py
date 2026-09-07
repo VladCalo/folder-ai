@@ -4,11 +4,11 @@ dropped-in file" - the Phase 1 unit of work from docs/03-implementation-roadmap.
 from pathlib import Path
 from typing import Tuple
 
-from .config import Settings
-from .llm_client import call_structured, truncate
+from ..config import Settings
+from ..llm_client import call_structured, truncate
+from ..prompts import CLASSIFICATION_SYSTEM_PROMPT
+from ..schema import CLASSIFICATION_JSON_SCHEMA, DocumentClassification
 from .parsing import parse_document_text
-from .prompts import CLASSIFICATION_SYSTEM_PROMPT
-from .schema import CLASSIFICATION_JSON_SCHEMA, DocumentClassification
 
 # Below this, flag for human review instead of trusting the label - per
 # docs/02-mvp-scope.md: low-confidence classifications must be flagged, never

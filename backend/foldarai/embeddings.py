@@ -10,7 +10,7 @@ and specifically trained for asymmetric retrieval (a "query: " prefix for
 questions, "passage: " for indexed text) - which is exactly this use case.
 Not benchmarked against alternatives; revisit if semantic search quality
 turns out to be the weak link once the router is tested against real
-queries. See ingestion/README.md "Deferred: Onyx and Unstract".
+queries. See backend/README.md "Deferred: Onyx and Unstract".
 
 384-dimensional output - the pgvector column this writes into must be
 vector(384) (see db.py's schema).

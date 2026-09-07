@@ -53,8 +53,8 @@ def load_settings() -> Settings:
     api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
         raise RuntimeError(
-            "OPENROUTER_API_KEY is not set. Copy ingestion/.env.example to "
-            "ingestion/.env and fill in a real key, or export it directly."
+            "OPENROUTER_API_KEY is not set. Copy backend/.env.example to "
+            "backend/.env and fill in a real key, or export it directly."
         )
     return Settings(
         openrouter_api_key=api_key,

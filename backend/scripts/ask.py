@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Ask the router a question directly from the CLI - no Slack needed. Same
-router.answer_question() the Slack bot calls, so this is the fast way to
+answer_question() the Slack bot calls, so this is the fast way to
 test/iterate on routing and answer quality.
 
 Usage:
@@ -11,11 +11,12 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-INGESTION_ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(INGESTION_ROOT))
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(BACKEND_ROOT))
 
-from foldarai_ingestion import db, router  # noqa: E402
-from foldarai_ingestion.config import load_settings  # noqa: E402
+from foldarai import db  # noqa: E402
+from foldarai.config import load_settings  # noqa: E402
+from foldarai.router import answer_question  # noqa: E402
 
 
 def main() -> None:
@@ -24,11 +25,11 @@ def main() -> None:
         sys.exit(1)
     question = sys.argv[1]
 
-    load_dotenv(INGESTION_ROOT / ".env")
+    load_dotenv(BACKEND_ROOT / ".env")
     settings = load_settings()
     conn = db.connect(settings)
     try:
-        result = router.answer_question(question, conn, settings)
+        result = answer_question(question, conn, settings)
     finally:
         conn.close()
 

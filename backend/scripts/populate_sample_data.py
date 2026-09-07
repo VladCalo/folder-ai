@@ -22,16 +22,18 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-INGESTION_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = INGESTION_ROOT.parent
-sys.path.insert(0, str(INGESTION_ROOT))
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = BACKEND_ROOT.parent
+sys.path.insert(0, str(BACKEND_ROOT))
 
-from foldarai_ingestion import db, embeddings  # noqa: E402
-from foldarai_ingestion.classify import classify_document_text  # noqa: E402
-from foldarai_ingestion.config import load_settings  # noqa: E402
-from foldarai_ingestion.extraction import extract_invoice_fields  # noqa: E402
-from foldarai_ingestion.llm_client import OpenRouterError  # noqa: E402
-from foldarai_ingestion.parsing import parse_document_text  # noqa: E402
+from foldarai import db, embeddings  # noqa: E402
+from foldarai.config import load_settings  # noqa: E402
+from foldarai.ingestion import (  # noqa: E402
+    classify_document_text,
+    extract_invoice_fields,
+    parse_document_text,
+)
+from foldarai.llm_client import OpenRouterError  # noqa: E402
 
 DUMP_DIR = REPO_ROOT / "sample-data" / "dump"
 LOW_CONFIDENCE_THRESHOLD = 0.7
@@ -39,7 +41,7 @@ DELAY_BETWEEN_FILES_SECONDS = 1
 
 
 def main() -> None:
-    load_dotenv(INGESTION_ROOT / ".env")
+    load_dotenv(BACKEND_ROOT / ".env")
     settings = load_settings()
     conn = db.connect(settings)
 
@@ -124,7 +126,7 @@ def main() -> None:
         # Whole document as one chunk - documents here are short. Real
         # chunking (splitting long documents into ~overlapping windows) is
         # a "come back to this" item once real, longer documents show up -
-        # see embeddings.py and ingestion/README.md.
+        # see embeddings.py and backend/README.md.
         embedding = embeddings.embed_passage(text)
         db.insert_chunk(
             conn,

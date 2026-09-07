@@ -1,7 +1,7 @@
 """Postgres persistence: documents/invoices/invoice_line_items (structured
 data, per docs/01-architecture.md's data model) plus document_chunks (the
 pgvector-backed semantic index - our stand-in for Onyx, see
-ingestion/README.md "Deferred: Onyx and Unstract").
+backend/README.md "Deferred: Onyx and Unstract").
 
 Plain SQL via psycopg, no ORM - matches the "simple direct calls" approach
 used throughout this codebase so far, and keeps the schema (below) fully
@@ -270,32 +270,10 @@ def semantic_search(
     ]
 
 
-# Schema description handed to the router's text-to-SQL prompt (router.py) -
-# kept here, next to the real schema, so they can't silently drift apart.
-FINANCIAL_SCHEMA_DESCRIPTION = """
-invoices (id, tenant_id, document_id, vendor_name, customer_name,
-          document_number, issue_date DATE, currency, subtotal_amount,
-          tax_amount, total_amount, direction, extraction_confidence,
-          extracted_at)
-    direction is 'sale' (revenue - money this business received) or
-    'purchase' (expense - money this business paid). Profit for a period is
-    SUM(total_amount) WHERE direction='sale' MINUS SUM(total_amount) WHERE
-    direction='purchase' for that period - total_amount alone is NOT
-    signed, summing it across both directions without separating them
-    conflates revenue and expenses.
-
-invoice_line_items (id, invoice_id, description, quantity, unit_price,
-                     line_total)
-
-documents (id, tenant_id, filename, document_type, short_description,
-           contains_financial_data, date_mentioned, ingested_at)
-"""
-
-
 def run_readonly_query(conn: psycopg.Connection, sql: str, tenant_id: str) -> List[dict]:
-    """Executes a single SELECT statement. See router.py for the safety
-    checks applied to `sql` before it reaches here - this function itself
-    does not re-validate, callers must.
+    """Executes a single SELECT statement. See sql_safety.py for the checks
+    applied to `sql` before it reaches here (called from tools.py) - this
+    function itself does not re-validate, callers must.
     """
     with conn.cursor() as cur:
         cur.execute(sql, {"tenant_id": tenant_id})

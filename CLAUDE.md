@@ -4,17 +4,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository state
 
-This repo currently contains **no implementation code** — only the planning package for FoldarAI in `docs/`, plus a synthetic test-document set in `sample-data/` (see `sample-data/README.md`). There is no build system, lint config, test suite, or `docker-compose.yml` yet. Do not assume commands like `npm test` or `docker-compose up` work; they don't exist until Phase 0 of the roadmap is built (see below). When implementation starts, this file should be updated with real build/lint/test commands.
+`docs/` is the original planning package. `sample-data/` is a synthetic test-document set (see `sample-data/README.md`). `backend/` is a real, working, *thin* end-to-end implementation (Python) — see below; it deliberately stands in for several documented components (Onyx, Unstract, a real LangGraph router) rather than being the final architecture. There is no `docker-compose.yml`/multi-tenant packaging yet (Phase 7). When that starts, this file should be updated with real build/deploy commands.
 
 ## Sample data
 
 `sample-data/` holds a small, entirely synthetic Romanian document set (19 invoices, 4 contracts, 2 HR docs, 5 emails, 1 accounting spreadsheet) for one fictional company, generated for Phase 1-4 pipeline testing — see `sample-data/README.md` for the entity list and ground-truth answers (best month, totals per supplier, notice periods, etc.) that map directly to the example queries in `docs/02-mvp-scope.md`. Feed the pipeline `sample-data/dump/` — a flat folder with deliberately messy, non-descriptive filenames simulating a real unsorted client hand-off — never a type-sorted folder; `sample-data/manifest.json` is the separate answer key (`contains_financial_data` ground truth + a broad `category` for eyeballing, plus identifying fields), used only to score accuracy, never fed to the pipeline. It intentionally does not cover OCR/scan-quality risk (plain text, not scanned PDFs) — that's a Phase 8 real-pilot concern.
 
-## Ingestion service (Phase 1)
+## Backend (thin end-to-end pass: ingest → classify → extract → embed → route → answer)
 
-`ingestion/` is a real (scaffolded, not yet run) Python service: parse (Unstructured.io) + classify (one OpenRouter LLM call, plain HTTP request — no LangChain/RAG, see `ingestion/foldarai_ingestion/llm_client.py` for why) — see `ingestion/README.md`. **Classification is open-ended, not a fixed taxonomy**: `document_type` is free text, answering "what is this document?" as specifically as a general-purpose LLM would, since a real client dump can contain anything (insurance policies, permits, bank statements, meeting minutes, ...), not just the 4 types used as MVP-scope examples in `docs/02-mvp-scope.md`. The one closed decision the pipeline actually needs is `contains_financial_data` — whether a document should also go through Unstract's structured-extraction path (the Unstract-vs-Onyx fork in `docs/01-architecture.md` step 4); see `ingestion/foldarai_ingestion/schema.py`. `ingestion/scripts/run_classification_eval.py` validates this against `sample-data/`.
+`backend/` is a working Python implementation of the whole loop, validated against `sample-data/` — see `backend/README.md` for full details, and its **"Deferred: Onyx and Unstract"** section before assuming any of it is the final architecture (extraction, embeddings, the Slack UI, and the router are all deliberate stand-ins for documented components, clearly marked at each call site).
 
-Note: the actual infra build has started outside this repo — Postgres (with the `pgvector` extension, one `folderai` database holding both relational tables and vector-embedding columns) runs on a home k3s cluster (Raspberry Pi 5), managed via ArgoCD from the `k3s-rpi5` repo (`apps/folderai/`, `apps/postgres/`).
+One Python package, `foldarai/`, split by *when code runs*: `foldarai/ingestion/` (triggered by a document arriving — parse, classify, extract) and `foldarai/router/` (triggered by a question arriving — route, run tools, synthesize an answer), with shared infra (`config.py`, `schema.py`, `prompts.py`, `llm_client.py`, `db.py`, `embeddings.py`) at the package's top level.
+
+**Classification is open-ended, not a fixed taxonomy**: `document_type` is free text, answering "what is this document?" as specifically as a general-purpose LLM would, since a real client dump can contain anything (insurance policies, permits, bank statements, meeting minutes, ...), not just the 4 types used as MVP-scope examples in `docs/02-mvp-scope.md`. The one closed decision the pipeline actually needs is `contains_financial_data` — whether a document should also go through Unstract's structured-extraction path (the Unstract-vs-Onyx fork in `docs/01-architecture.md` step 4); see `backend/foldarai/schema.py`.
+
+Note: the actual infra build has started outside this repo — Postgres (with the `pgvector` extension, one `folderai` database holding both relational tables and vector-embedding columns) runs on a home k3s cluster (Raspberry Pi 5), managed via ArgoCD from the `k3s-rpi5` repo (`apps/folderai/`, `apps/postgres/`). Reach it from `backend/` via `kubectl -n postgres port-forward svc/postgres 5432:5432` against the `admin@rpi5` context.
 
 ## What FoldarAI is
 
@@ -59,12 +63,12 @@ The full plan lives in `docs/`, written to be read in order:
 
 Implementation is incremental even though the MVP's target scope is broad (all four document types from day one). Build order, per `docs/03-implementation-roadmap.md`:
 
-0. Stand up Postgres, Qdrant/pgvector, Onyx, Unstract via Docker Compose — verify each independently, no custom code.
-1. Ingestion service: parse (Unstructured.io) + classify (`document_type`, confidence, parties, date) via one LLM call. Target ≥90% accuracy on a labeled test set; flag low-confidence rather than silently misroute.
-2. Structured extraction (invoices → Postgres via Unstract). Get date/amount extraction right above almost everything else — it's the input to every financial answer downstream and the highest-consequence failure mode.
-3. Semantic path (contracts, then HR docs, then emails into Onyx/vector store) — later document types reuse the same pipeline, no new architecture.
-4. Router agent (LangGraph ReAct, two tools) — test against every example query in `docs/02-mvp-scope.md`, especially the compound and "should refuse" cases.
-5. UI/channels (Onyx web chat + Slack), upload portal, source citations, financial-answer disclaimer.
+0. Stand up Postgres, Qdrant/pgvector, Onyx, Unstract via Docker Compose — verify each independently, no custom code. *(Partial: Postgres/pgvector is up on the rpi5 — see `k3s-rpi5`. Onyx/Unstract deliberately not deployed yet, see `backend/README.md`.)*
+1. Ingestion service: parse (Unstructured.io) + classify (`document_type`, confidence, parties, date) via one LLM call. Target ≥90% accuracy on a labeled test set; flag low-confidence rather than silently misroute. *(Done — `backend/foldarai/ingestion/classify.py`, validated against `sample-data/`.)*
+2. Structured extraction (invoices → Postgres via Unstract). Get date/amount extraction right above almost everything else — it's the input to every financial answer downstream and the highest-consequence failure mode. *(Thin version done — `backend/foldarai/ingestion/extraction.py` is a direct LLM call, not Unstract.)*
+3. Semantic path (contracts, then HR docs, then emails into Onyx/vector store) — later document types reuse the same pipeline, no new architecture. *(Thin version done — local embeddings + pgvector, not Onyx, see `backend/foldarai/embeddings.py`.)*
+4. Router agent (LangGraph ReAct, two tools) — test against every example query in `docs/02-mvp-scope.md`, especially the compound and "should refuse" cases. *(Thin version done — `backend/foldarai/router/`, a fixed 3-step pipeline rather than a real agent loop; the hardest compound case is a known unhandled limitation, see `answer.py`'s docstring.)*
+5. UI/channels (Onyx web chat + Slack), upload portal, source citations, financial-answer disclaimer. *(Thin version done — hand-rolled Slack bot, `backend/slack_bot.py`; no web chat UI or upload portal yet.)*
 6. Lightweight eval harness — turn example queries + labeled docs into a re-runnable golden set; re-run after any prompt/schema/router change.
 7. Multi-tenant packaging — parameterize Compose bundle so a second client stack stands up with no manual one-off changes.
 8. Real pilot client.

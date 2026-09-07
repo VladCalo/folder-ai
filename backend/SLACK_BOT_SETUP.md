@@ -9,14 +9,14 @@ subscriptions) has been stable for a long time.
    Name it (e.g. "FoldarAI Dev"), pick your workspace.
 2. **Socket Mode**: Settings → Socket Mode → toggle on. This prompts you to
    create an **App-Level Token** with the `connections:write` scope — copy
-   it (starts with `xapp-`) into `SLACK_APP_TOKEN` in `ingestion/.env`.
+   it (starts with `xapp-`) into `SLACK_APP_TOKEN` in `backend/.env`.
 3. **Bot Token Scopes**: OAuth & Permissions → Scopes → Bot Token Scopes →
    add `app_mentions:read`, `chat:write`, `im:history`, `im:read`, `im:write`.
 4. **Event Subscriptions**: toggle on → Subscribe to bot events → add
    `app_mention` and `message.im`.
 5. **Install to Workspace**: OAuth & Permissions → Install to Workspace →
    authorize. Copy the **Bot User OAuth Token** (starts with `xoxb-`) into
-   `SLACK_BOT_TOKEN` in `ingestion/.env`.
+   `SLACK_BOT_TOKEN` in `backend/.env`.
 6. Invite the bot to a channel (`/invite @FoldarAI Dev`) or just DM it
    directly - both work per `slack_bot.py`'s event handlers.
 7. Run it (with the venv active and `sample-data/` already populated -

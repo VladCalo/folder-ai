@@ -2,7 +2,7 @@
 """Runs classification over sample-data/dump/ and checks it against
 sample-data/manifest.json.
 
-document_type is open text (see foldarai_ingestion/schema.py) - there's no
+document_type is open text (see foldarai/schema.py) - there's no
 fixed taxonomy to score exact-match accuracy against, by design. So this
 script scores what's actually well-defined ground truth:
 
@@ -17,13 +17,12 @@ script scores what's actually well-defined ground truth:
   call, not a string-equality one.
 
 Usage:
-    cd ingestion
+    cd backend
     python -m venv .venv && source .venv/bin/activate
     pip install -r requirements.txt
     python scripts/run_classification_eval.py
 
-Not yet run against the real OpenRouter API - this is scaffolding, first
-real run is a deliberate next step.
+Already run for real once (see backend/README.md's "Status" section).
 """
 import json
 import sys
@@ -32,13 +31,13 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-INGESTION_ROOT = Path(__file__).resolve().parents[1]
-REPO_ROOT = INGESTION_ROOT.parent
-sys.path.insert(0, str(INGESTION_ROOT))
+BACKEND_ROOT = Path(__file__).resolve().parents[1]
+REPO_ROOT = BACKEND_ROOT.parent
+sys.path.insert(0, str(BACKEND_ROOT))
 
-from foldarai_ingestion.classify import classify_file  # noqa: E402
-from foldarai_ingestion.config import load_settings  # noqa: E402
-from foldarai_ingestion.llm_client import OpenRouterError  # noqa: E402
+from foldarai.config import load_settings  # noqa: E402
+from foldarai.ingestion import classify_file  # noqa: E402
+from foldarai.llm_client import OpenRouterError  # noqa: E402
 
 SAMPLE_DATA_DIR = REPO_ROOT / "sample-data"
 DUMP_DIR = SAMPLE_DATA_DIR / "dump"
@@ -51,7 +50,7 @@ DELAY_BETWEEN_REQUESTS_SECONDS = 2
 
 
 def main() -> None:
-    load_dotenv(INGESTION_ROOT / ".env")
+    load_dotenv(BACKEND_ROOT / ".env")
     settings = load_settings()
 
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))

@@ -29,7 +29,7 @@ All entities, CUIs, addresses, and CNPs below are fictional.
   `category` label and identifying fields (partner, date, invoice totals,
   employee). `category` is for human/report eyeballing only — the classifier's
   own `document_type` output is deliberately open text (see
-  `ingestion/foldarai_ingestion/schema.py`), so there's no fixed taxonomy to score
+  `backend/foldarai/schema.py`), so there's no fixed taxonomy to score
   it against; `category` is not what the classifier is scored on. Kept separate
   from `dump/`, never fed to the pipeline.
 

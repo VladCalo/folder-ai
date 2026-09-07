@@ -226,7 +226,7 @@ for inv_id, partner_key, date, items in INVOICES:
         # "category" is a broad ground-truth bucket used only for scoring/
         # reporting in the eval script - NOT a taxonomy fed to or enforced on
         # the classifier, which returns open-text document_type instead (see
-        # foldarai_ingestion/schema.py).
+        # backend/foldarai/schema.py).
         "category": "invoice",
         "contains_financial_data": True,
         "invoice_id": inv_id,

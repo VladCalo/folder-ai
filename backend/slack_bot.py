@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-"""Slack bot: relays questions to router.answer_question() and replies with
-the answer plus grounding/sources. Uses Socket Mode (no public URL/ingress
+"""Slack bot: relays questions to answer_question() and replies with the
+answer plus grounding/sources. Uses Socket Mode (no public URL/ingress
 needed) - fine for this local-dev pass; see SLACK_BOT_SETUP.md to create the
 Slack app and get the two tokens this needs.
 
 DEFERRED: this is a small hand-rolled bot, not Onyx's built-in Slack
-connector - see ingestion/README.md "Deferred: Onyx and Unstract".
+connector - see backend/README.md "Deferred: Onyx and Unstract".
 """
 import sys
 from pathlib import Path
@@ -14,11 +14,12 @@ from dotenv import load_dotenv
 from slack_bolt import App
 from slack_bolt.adapter.socket_mode import SocketModeHandler
 
-INGESTION_ROOT = Path(__file__).resolve().parent
-sys.path.insert(0, str(INGESTION_ROOT))
+BACKEND_ROOT = Path(__file__).resolve().parent
+sys.path.insert(0, str(BACKEND_ROOT))
 
-from foldarai_ingestion import db, router  # noqa: E402
-from foldarai_ingestion.config import Settings, load_settings  # noqa: E402
+from foldarai import db  # noqa: E402
+from foldarai.config import Settings, load_settings  # noqa: E402
+from foldarai.router import answer_question  # noqa: E402
 
 FINANCIAL_DISCLAIMER = (
     "\n\n_FoldarAI answers are generated from this business's own documents "
@@ -52,7 +53,7 @@ def _handle_question(event: dict, say, settings: Settings) -> None:
 
     conn = db.connect(settings)
     try:
-        result = router.answer_question(question, conn, settings)
+        result = answer_question(question, conn, settings)
     except Exception as exc:  # noqa: BLE001 - a bad question must not kill the bot process
         say(f"Something went wrong answering that: {exc}")
         return
@@ -71,11 +72,11 @@ def _handle_question(event: dict, say, settings: Settings) -> None:
 
 
 def main() -> None:
-    load_dotenv(INGESTION_ROOT / ".env")
+    load_dotenv(BACKEND_ROOT / ".env")
     settings = load_settings()
     if not settings.slack_bot_token or not settings.slack_app_token:
         raise RuntimeError(
-            "SLACK_BOT_TOKEN and SLACK_APP_TOKEN must be set in ingestion/.env "
+            "SLACK_BOT_TOKEN and SLACK_APP_TOKEN must be set in backend/.env "
             "- see SLACK_BOT_SETUP.md to create a Slack app and get them."
         )
 
