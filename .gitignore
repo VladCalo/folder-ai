@@ -1,1 +1,9 @@
 .DS_Store
+.openrouter
+ingestion/.env
+ingestion/.venv/
+ingestion/__pycache__/
+ingestion/**/__pycache__/
+*.pyc
+
+ingestion/.venv
