@@ -91,3 +91,77 @@ CLASSIFICATION_JSON_SCHEMA = {
         "additionalProperties": False,
     },
 }
+
+
+# --- Structured extraction (Phase 2 stand-in - see extraction.py) ----------
+#
+# This is a direct LLM call, same pattern as classification above, standing
+# in for Unstract until we come back and do the real integration (see
+# ingestion/README.md "Deferred: Onyx and Unstract").
+
+
+class InvoiceLineItem(BaseModel):
+    description: str
+    quantity: float
+    unit_price: float
+    line_total: float
+
+
+class InvoiceExtraction(BaseModel):
+    vendor_name: str
+    customer_name: Optional[str] = None
+    document_number: Optional[str] = None
+    issue_date: Optional[str] = None
+    currency: str
+    subtotal_amount: Optional[float] = None
+    tax_amount: Optional[float] = None
+    total_amount: float
+    line_items: List[InvoiceLineItem]
+    extraction_confidence: float = Field(ge=0.0, le=1.0)
+
+
+EXTRACTION_JSON_SCHEMA = {
+    "name": "invoice_extraction",
+    "strict": True,
+    "schema": {
+        "type": "object",
+        "properties": {
+            "vendor_name": {"type": "string"},
+            "customer_name": {"type": ["string", "null"]},
+            "document_number": {"type": ["string", "null"]},
+            "issue_date": {"type": ["string", "null"]},
+            "currency": {"type": "string"},
+            "subtotal_amount": {"type": ["number", "null"]},
+            "tax_amount": {"type": ["number", "null"]},
+            "total_amount": {"type": "number"},
+            "line_items": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "description": {"type": "string"},
+                        "quantity": {"type": "number"},
+                        "unit_price": {"type": "number"},
+                        "line_total": {"type": "number"},
+                    },
+                    "required": ["description", "quantity", "unit_price", "line_total"],
+                    "additionalProperties": False,
+                },
+            },
+            "extraction_confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        },
+        "required": [
+            "vendor_name",
+            "customer_name",
+            "document_number",
+            "issue_date",
+            "currency",
+            "subtotal_amount",
+            "tax_amount",
+            "total_amount",
+            "line_items",
+            "extraction_confidence",
+        ],
+        "additionalProperties": False,
+    },
+}

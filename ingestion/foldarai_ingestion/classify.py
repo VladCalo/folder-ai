@@ -5,9 +5,10 @@ from pathlib import Path
 from typing import Tuple
 
 from .config import Settings
-from .llm_client import classify_document_text
+from .llm_client import call_structured, truncate
 from .parsing import parse_document_text
-from .schema import DocumentClassification
+from .prompts import CLASSIFICATION_SYSTEM_PROMPT
+from .schema import CLASSIFICATION_JSON_SCHEMA, DocumentClassification
 
 # Below this, flag for human review instead of trusting the label - per
 # docs/02-mvp-scope.md: low-confidence classifications must be flagged, never
@@ -15,6 +16,13 @@ from .schema import DocumentClassification
 # docs/05-risks-and-open-questions.md) - revisit once the eval script has
 # real accuracy/confidence numbers to tune against.
 LOW_CONFIDENCE_THRESHOLD = 0.7
+
+
+def classify_document_text(text: str, settings: Settings) -> DocumentClassification:
+    data = call_structured(
+        CLASSIFICATION_SYSTEM_PROMPT, truncate(text), CLASSIFICATION_JSON_SCHEMA, settings
+    )
+    return DocumentClassification.model_validate(data)
 
 
 def classify_file(path: Path, settings: Settings) -> Tuple[DocumentClassification, bool]:

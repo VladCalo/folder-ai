@@ -1,33 +1,51 @@
-# Ingestion service (Phase 1)
+# Ingestion + router + Slack bot (fast end-to-end pass)
 
-Parse + classify: turns a dropped-in file into plain text (Unstructured.io)
-and one structured label via a single OpenRouter LLM call. See
-`docs/03-implementation-roadmap.md` Phase 1 and `docs/01-architecture.md`'s
-ingestion pipeline section for the design this implements.
+A thin, working version of the whole loop — ingest → classify → extract →
+embed → route → answer, reachable from Slack — built to prove the pipeline
+end to end quickly rather than to be the final architecture. See
+**"Deferred: Onyx and Unstract"** below before assuming any of this is the
+long-term design.
 
-Plain HTTP calls, no LangChain/agent framework, no RAG — classification is a
-single request/response, not a multi-step reasoning loop. See
-`foldarai_ingestion/llm_client.py` for why.
+## ⚠️ Deferred: Onyx and Unstract
 
-**Classification is open-ended, not a fixed taxonomy.** `document_type` is
-free text — the model answers "what is this document?" as specifically and
-accurately as it can (a real client dump can contain anything: insurance
-policies, permits, bank statements, meeting minutes, correspondence with
-authorities, not just the 4 types used as MVP examples in `docs/02-mvp-scope.md`).
-The one thing the pipeline actually needs as a closed decision is
-`contains_financial_data` — whether this document should also go through
-Unstract's structured extraction (the Unstract-vs-Onyx fork in
-`docs/01-architecture.md` step 4). See `foldarai_ingestion/schema.py` for the
-full reasoning.
+`docs/01-architecture.md` specifies **Onyx** (semantic search, chat/Slack UI,
+embeddings) and **Unstract** (LLM-driven structured extraction) as the real
+components for this. Neither is deployed. Instead, for this first
+fast end-to-end pass:
+
+| Docs' component | What's actually running instead | Where |
+|---|---|---|
+| Unstract (extraction) | One more direct LLM call, same pattern as classification | `foldarai_ingestion/extraction.py` |
+| Onyx (embeddings) | A local embedding model (`intfloat/multilingual-e5-small`) writing straight into pgvector — no external API, avoids a second flaky free-tier dependency after the OpenRouter rate-limit issues | `foldarai_ingestion/embeddings.py` |
+| Onyx (chat UI + Slack connector) | A small hand-rolled Slack app (Socket Mode) | `slack_bot.py`, `SLACK_BOT_SETUP.md` |
+| LangGraph (router agent) | A fixed 3-step pipeline (route → run tool(s) → synthesize), not an agent loop — see the limitation noted in `router.py`'s docstring (sequential compound questions like "contracts active during our *best* month" need the semantic query to depend on the financial tool's result, which this can't do yet) | `foldarai_ingestion/router.py` |
+
+**Come back and do the real integration** once this thin version proves the
+loop works — swap in Onyx for embeddings/search/Slack/UI, Unstract for
+extraction, and a real LangGraph agent for the router, per
+`docs/01-architecture.md`. Also come back to: a dedicated read-only Postgres
+role for the router's generated SQL (it currently runs as the `folderai`
+owner role — see `router.py`'s `_validate_readonly_sql` docstring), and real
+document chunking for long documents (`populate_sample_data.py` currently
+embeds each whole document as a single chunk).
 
 ## Layout
 
-- `foldarai_ingestion/config.py` — env-based settings (`OPENROUTER_API_KEY`, `OPENROUTER_MODEL`)
-- `foldarai_ingestion/schema.py` — the classification output shape (Pydantic model + JSON Schema for `response_format`): open-text `document_type` + `short_description`, plus the one real routing boolean `contains_financial_data`
-- `foldarai_ingestion/llm_client.py` — the OpenRouter chat-completions call, with retry-with-backoff and a cross-provider fallback chain (`FALLBACK_MODELS`) since free-tier providers (Google AI Studio, NVIDIA's endpoint, ...) hit real transient overload in testing
+- `foldarai_ingestion/config.py` — env settings: OpenRouter, Postgres, tenant id, Slack tokens
+- `foldarai_ingestion/schema.py` — Pydantic models + JSON Schemas for classification and extraction output
+- `foldarai_ingestion/prompts.py` — the classification and extraction system prompts
+- `foldarai_ingestion/llm_client.py` — generic structured-output OpenRouter call: retry-with-backoff, cross-provider fallback chain, markdown-fence-stripping JSON parsing
 - `foldarai_ingestion/parsing.py` — Unstructured.io wrapper (file → plain text)
-- `foldarai_ingestion/classify.py` — parse + classify one file, flags low-confidence results for review
-- `scripts/run_classification_eval.py` — runs classification over `sample-data/dump/`, scores `contains_financial_data` against `sample-data/manifest.json` (real ground truth, ≥90% target), and prints `document_type`/`short_description` for every file for manual eyeballing (open text isn't auto-scored — that's a qualitative call)
+- `foldarai_ingestion/classify.py` — classification (Phase 1)
+- `foldarai_ingestion/extraction.py` — invoice field extraction (Phase 2 stand-in)
+- `foldarai_ingestion/embeddings.py` — local embedding model (Onyx stand-in)
+- `foldarai_ingestion/db.py` — Postgres schema + persistence + pgvector similarity search, plain SQL
+- `foldarai_ingestion/router.py` — the two-tool router + answer synthesis (Phase 4 stand-in)
+- `scripts/init_db.py` — creates the tables
+- `scripts/populate_sample_data.py` — runs the full pipeline over `sample-data/dump/` into Postgres
+- `scripts/run_classification_eval.py` — classification-only accuracy check against `sample-data/manifest.json`
+- `scripts/ask.py` — ask the router a question from the CLI (no Slack needed)
+- `slack_bot.py` / `SLACK_BOT_SETUP.md` — the Slack bot and how to set it up
 
 ## Setup
 
@@ -35,34 +53,57 @@ full reasoning.
 cd ingestion
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-cp .env.example .env   # already done locally if .env exists — fill in a real OPENROUTER_API_KEY otherwise
+pip install -r requirements.txt   # includes sentence-transformers/torch - takes a few minutes
+cp .env.example .env              # already done locally if .env exists
 ```
 
-## Run the classification eval
+Postgres is on the rpi5 cluster, not local — reach it via port-forward
+(separate terminal, kept running):
+```bash
+kubectl config use-context admin@rpi5
+kubectl -n postgres port-forward svc/postgres 5432:5432
+```
+
+## Run it end to end
+
+```bash
+python scripts/init_db.py
+python scripts/populate_sample_data.py     # classify + extract + embed all of sample-data/dump/
+python scripts/ask.py "What was our most profitable month this year?"
+```
+
+Then, once you've set up a Slack app (`SLACK_BOT_SETUP.md`):
+```bash
+python slack_bot.py
+```
+
+## Status: validated end to end
+
+All 31 `sample-data/dump/` files ingested successfully. Tested the router
+directly (`scripts/ask.py`) against 3 of the documented example queries in
+`docs/02-mvp-scope.md` — all correct, matching `sample-data/README.md`'s
+ground truth exactly:
+- "Most profitable month in 2025?" → June, 38,113.54 RON (exact match)
+- "Notice period, Ioana Pop's contract?" → 20 zile lucrătoare, correctly cited to the source file
+- "Total spent with Lemn Prod SRL?" → 39,801.32 RON (exact match)
+
+Note: the system clock is well past `sample-data/`'s 2025 timeframe, so
+phrase test questions with an explicit year ("in 2025") - an unscoped "this
+year" resolves against the real current date and correctly finds nothing.
+
+Not yet tested: the compound/refusal example queries, and the Slack bot
+itself (needs your own Slack app credentials - see `SLACK_BOT_SETUP.md`).
+
+## Classification-only eval
 
 ```bash
 python scripts/run_classification_eval.py
 ```
 
-Prints `document_type`/`short_description` per file (eyeball these against
-`sample-data/README.md`'s entity list — that's the real "is this as accurate
-as ChatGPT" check), plus `contains_financial_data` accuracy against the
-`manifest.json` ground truth and whether it clears the ≥90% bar. Not yet run
-for real — this is scaffolding; the model choice (`OPENROUTER_MODEL` in
-`.env`, currently `nvidia/nemotron-3-super-120b-a12b:free` after
-`google/gemma-4-31b-it:free` turned out to be congested — Google AI Studio's
-shared free pool, not specific to this project) is a starting guess to
-validate empirically here, not a final decision (see
-`docs/05-risks-and-open-questions.md`).
-
-## Not built yet
-
-- No HTTP API (FastAPI) wrapping this — right now it's a library + CLI eval
-  script, tested against `sample-data/`. Roadmap Phase 1 calls for a small
-  FastAPI service accepting uploads; add that once classification accuracy
-  is actually validated, rather than before.
-- No Postgres persistence of `documents` rows yet (Phase 1/2 data model in
-  `docs/01-architecture.md`).
-- No structured extraction (Unstract, Phase 2) or semantic indexing (Onyx,
-  Phase 3) — this only covers parse + classify.
+Scores `contains_financial_data` against `sample-data/manifest.json` (real
+ground truth, ≥90% target) and prints `document_type`/`short_description`
+per file for manual eyeballing (open text isn't auto-scored — see
+`foldarai_ingestion/schema.py`). Already run for real once — 100% on
+`contains_financial_data`, qualitatively accurate open-text labels.
+`OPENROUTER_MODEL` in `.env` is currently `nvidia/nemotron-3-super-120b-a12b:free`
+(a starting guess, not a final decision — see `docs/05-risks-and-open-questions.md`).
