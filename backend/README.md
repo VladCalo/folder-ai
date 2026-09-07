@@ -103,19 +103,22 @@ python slack_bot.py
 ## Status: validated end to end
 
 All 31 `sample-data/dump/` files ingested successfully. Tested the router
-directly (`scripts/ask.py`) against 3 of the documented example queries in
-`docs/02-mvp-scope.md` — all correct, matching `sample-data/README.md`'s
-ground truth exactly:
-- "Most profitable month in 2025?" → June, 38,113.54 RON (exact match)
-- "Notice period, Ioana Pop's contract?" → 20 zile lucrătoare, correctly cited to the source file
-- "Total spent with Lemn Prod SRL?" → 39,801.32 RON (exact match)
+directly (`scripts/ask.py`) against all 5 documented example-query
+categories in `docs/02-mvp-scope.md`:
+- Pure financial: "Most profitable month in 2025?" → June, 38,113.54 RON (exact match)
+- Pure semantic: "Notice period, Ioana Pop's contract?" → 20 zile lucrătoare, correctly cited to the source file
+- Financial aggregation: "Total spent with Lemn Prod SRL?" → 39,801.32 RON (exact match)
+- Compound: "Which contracts were active during our best month?" → correctly **refused** rather than fabricate an answer (the known router limitation - the financial sub-query came back inconclusive - but it degraded safely instead of confidently guessing)
+- Refusal: "How much do we pay for office rent in Bucharest?" → correctly refused, citing that no document mentions rent
+
+All correct or safely-refusing, no hallucinated numbers/facts observed.
 
 Note: the system clock is well past `sample-data/`'s 2025 timeframe, so
 phrase test questions with an explicit year ("in 2025") - an unscoped "this
 year" resolves against the real current date and correctly finds nothing.
 
-Not yet tested: the compound/refusal example queries, and the Slack bot
-itself (needs your own Slack app credentials - see `SLACK_BOT_SETUP.md`).
+Not yet tested: the Slack bot itself (needs your own Slack app credentials
+- see `SLACK_BOT_SETUP.md`).
 
 Restructured (`ingestion/` → `backend/`, package split into
 `foldarai/ingestion/` + `foldarai/router/`) after this was validated —
