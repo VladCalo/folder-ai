@@ -1,7 +1,8 @@
 [
   {
     "filename": "Document_15012025.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FLP-014",
     "partner": "Lemn Prod SRL",
     "date": "2025-01-15",
@@ -10,7 +11,8 @@
   },
   {
     "filename": "atasament (1).txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FLP-031",
     "partner": "Lemn Prod SRL",
     "date": "2025-03-10",
@@ -19,7 +21,8 @@
   },
   {
     "filename": "20.05.2025.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FLP-052",
     "partner": "Lemn Prod SRL",
     "date": "2025-05-20",
@@ -28,7 +31,8 @@
   },
   {
     "filename": "Document nou (2).txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FLP-061",
     "partner": "Lemn Prod SRL",
     "date": "2025-06-05",
@@ -37,7 +41,8 @@
   },
   {
     "filename": "copie1.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FLP-078",
     "partner": "Lemn Prod SRL",
     "date": "2025-08-12",
@@ -46,7 +51,8 @@
   },
   {
     "filename": "octombrie.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FLP-096",
     "partner": "Lemn Prod SRL",
     "date": "2025-10-07",
@@ -55,7 +61,8 @@
   },
   {
     "filename": "factura feronerie.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FFE-022",
     "partner": "Feronerie Est SRL",
     "date": "2025-02-18",
@@ -64,7 +71,8 @@
   },
   {
     "filename": "fff.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FFE-039",
     "partner": "Feronerie Est SRL",
     "date": "2025-04-22",
@@ -73,7 +81,8 @@
   },
   {
     "filename": "Fwd - feronerie iunie.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FFE-058",
     "partner": "Feronerie Est SRL",
     "date": "2025-06-15",
@@ -82,7 +91,8 @@
   },
   {
     "filename": "Document nou.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FFE-081",
     "partner": "Feronerie Est SRL",
     "date": "2025-09-09",
@@ -91,7 +101,8 @@
   },
   {
     "filename": "chitanta vopsele martie.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FVR-011",
     "partner": "Vopsele Rapid SRL",
     "date": "2025-03-25",
@@ -100,7 +111,8 @@
   },
   {
     "filename": "vopsele iulie.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FVR-024",
     "partner": "Vopsele Rapid SRL",
     "date": "2025-07-14",
@@ -109,7 +121,8 @@
   },
   {
     "filename": "final.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FTN-005",
     "partner": "Transport Nord SRL",
     "date": "2025-06-20",
@@ -118,7 +131,8 @@
   },
   {
     "filename": "transport nord noiembrie.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "FTN-013",
     "partner": "Transport Nord SRL",
     "date": "2025-11-03",
@@ -127,7 +141,8 @@
   },
   {
     "filename": "AV 2025 018.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "AV-2025-018",
     "partner": "Mobilier Deco SRL",
     "date": "2025-02-10",
@@ -136,7 +151,8 @@
   },
   {
     "filename": "comanda mobilier deco iunie.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "AV-2025-057",
     "partner": "Mobilier Deco SRL",
     "date": "2025-06-25",
@@ -145,7 +161,8 @@
   },
   {
     "filename": "Document (3).txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "AV-2025-091",
     "partner": "Mobilier Deco SRL",
     "date": "2025-10-15",
@@ -154,7 +171,8 @@
   },
   {
     "filename": "factura ionescu.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "AV-2025-042",
     "partner": "Cabinet de Avocatura Ionescu",
     "date": "2025-05-05",
@@ -163,7 +181,8 @@
   },
   {
     "filename": "chitanta popescu.txt",
-    "document_type": "invoice",
+    "category": "invoice",
+    "contains_financial_data": true,
     "invoice_id": "AV-2025-071",
     "partner": "Popescu Andrei (persoana fizica)",
     "date": "2025-08-20",
@@ -172,62 +191,74 @@
   },
   {
     "filename": "Contract Lemn Prod 2025.txt",
-    "document_type": "contract",
+    "category": "contract",
+    "contains_financial_data": false,
     "partner": "Lemn Prod SRL"
   },
   {
     "filename": "contract feronerie SEMNAT.txt",
-    "document_type": "contract",
+    "category": "contract",
+    "contains_financial_data": false,
     "partner": "Feronerie Est SRL"
   },
   {
     "filename": "Contract transport final v2.txt",
-    "document_type": "contract",
+    "category": "contract",
+    "contains_financial_data": false,
     "partner": "Transport Nord SRL"
   },
   {
     "filename": "contract mobilier deco - semnat.txt",
-    "document_type": "contract",
+    "category": "contract",
+    "contains_financial_data": false,
     "partner": "Mobilier Deco SRL"
   },
   {
     "filename": "CIM Ioana Pop.txt",
-    "document_type": "hr_document",
+    "category": "hr_document",
+    "contains_financial_data": false,
     "employee": "Pop Ioana"
   },
   {
     "filename": "contract munca Mihai.txt",
-    "document_type": "hr_document",
+    "category": "hr_document",
+    "contains_financial_data": false,
     "employee": "Georgescu Mihai"
   },
   {
     "filename": "Fwd Fwd majorare pret feronerie.txt",
-    "document_type": "email",
+    "category": "email",
+    "contains_financial_data": false,
     "partner": "Feronerie Est SRL"
   },
   {
     "filename": "email lemn prod intarziere.txt",
-    "document_type": "email",
+    "category": "email",
+    "contains_financial_data": false,
     "partner": "Lemn Prod SRL"
   },
   {
     "filename": "RE comanda mobilier deco.txt",
-    "document_type": "email",
+    "category": "email",
+    "contains_financial_data": false,
     "partner": "Mobilier Deco SRL"
   },
   {
     "filename": "plan productie iunie.txt",
-    "document_type": "email",
+    "category": "email",
+    "contains_financial_data": false,
     "partner": "intern"
   },
   {
     "filename": "oferta vopsele.txt",
-    "document_type": "email",
+    "category": "email",
+    "contains_financial_data": false,
     "partner": "Vopsele Rapid SRL"
   },
   {
     "filename": "Registru facturi 2025.xlsx",
-    "document_type": "other",
-    "note": "Accounting register spreadsheet - not one of the 4 MVP document_type values (contract/invoice/hr_document/email). Expected pipeline behavior: low-confidence / unclassified, flagged for review rather than silently misrouted - see docs/02-mvp-scope.md."
+    "category": "accounting_register",
+    "contains_financial_data": true,
+    "note": "Not one of the originally-illustrative MVP document types (contract/invoice/hr_document/email) - included specifically to test that classification is genuinely open-ended (document_type is free text) rather than forcing a bad fit into a fixed list."
   }
 ]

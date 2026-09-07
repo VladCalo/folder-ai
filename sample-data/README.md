@@ -23,12 +23,15 @@ All entities, CUIs, addresses, and CNPs below are fictional.
   `.xlsx`) — none of them are actually scanned images despite some earlier naming
   suggesting otherwise; deliberately messy filenames test unsorted-dump handling,
   not OCR (see Format note below).
-- **`manifest.json`** — the answer key: one entry per file in `dump/` giving its
-  true `document_type` and identifying fields (partner, date, invoice totals,
-  employee). Kept separate from `dump/`, never fed to the pipeline — use it only
-  to score classification/extraction accuracy (Phase 1 exit criterion: ≥90%
-  classification accuracy; Phase 2: verify extracted invoice totals/dates against
-  it).
+- **`manifest.json`** — the answer key: one entry per file in `dump/` giving
+  `contains_financial_data` (a real boolean — the one thing the pipeline actually
+  needs to decide, since it gates the Unstract-vs-Onyx routing fork) plus a broad
+  `category` label and identifying fields (partner, date, invoice totals,
+  employee). `category` is for human/report eyeballing only — the classifier's
+  own `document_type` output is deliberately open text (see
+  `backend/foldarai/schema.py`), so there's no fixed taxonomy to score
+  it against; `category` is not what the classifier is scored on. Kept separate
+  from `dump/`, never fed to the pipeline.
 
 ## The fictional company
 
@@ -36,13 +39,13 @@ All entities, CUIs, addresses, and CNPs below are fictional.
 (CUI RO12345678). It buys raw materials (wood, hardware, paint, transport) from
 suppliers and sells custom furniture to businesses and individuals.
 
-| True type (per `manifest.json`) | Count |
-|---|---|
-| `invoice` | 19 (14 purchases, 5 sales) |
-| `contract` | 4 |
-| `hr_document` | 2 |
-| `email` | 5 |
-| `other` (accounting spreadsheet — see below) | 1 |
+| `category` in `manifest.json` (reporting only) | Count | `contains_financial_data` |
+|---|---|---|
+| `invoice` | 19 (14 purchases, 5 sales) | `true` |
+| `contract` | 4 | `false` |
+| `hr_document` | 2 | `false` |
+| `email` | 5 | `false` |
+| `accounting_register` (spreadsheet — see below) | 1 | `true` |
 
 ## Entities
 
@@ -69,16 +72,18 @@ suppliers and sells custom furniture to businesses and individuals.
 - **Mihai Georgescu** — Agent vânzări (sales), notice period **30 zile lucrătoare**.
 
 **Edge case — `Registru facturi 2025.xlsx`:** an accounting register spreadsheet
-mirroring the invoices. It isn't one of the 4 MVP `document_type` values
-(contract/invoice/hr_document/email) — expected pipeline behavior is that
-classification flags it as low-confidence/unclassified for review rather than
-silently forcing it into one of the four categories (see the "flag rather than
-silently misroute" requirement in `docs/02-mvp-scope.md`).
+mirroring the invoices. It's not one of the originally-illustrative MVP document
+types (contract/invoice/hr_document/email) — included specifically to test that
+classification is genuinely open-ended rather than forcing a bad-fit label onto
+anything outside a small fixed list. Expected: `document_type` something like
+"accounting register" or "invoice register", `contains_financial_data: true`
+(it clearly is financial data, worth extracting).
 
 ## Ground truth (for validating pipeline output)
 
-Recomputed from the data in the generator script — regenerate before trusting if
-you edit the underlying records.
+Recomputed from the data in `generate.py` (`pip install openpyxl && python3
+generate.py`, regenerates `dump/` and `manifest.json` in place) — regenerate
+before trusting if you edit the underlying records.
 
 | Question | Expected answer |
 |---|---|

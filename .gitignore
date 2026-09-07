@@ -1,1 +1,6 @@
 .DS_Store
+.openrouter
+backend/.env
+backend/.venv/
+backend/**/__pycache__/
+*.pyc
